@@ -1,0 +1,23 @@
+[package]
+name = "guessing_game_viggin"
+edition = "2018"
+version = "0.1.0"
+authors = ["igot@me.com"]
+description = "A fun game where you guess what number the computer has chosen."
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "mygrep"
+path = "src/lib/lib.rs"
+
+[dependencies]
+mockall = "0.6.0"
+rand = "0.6.0"
+itertools = "0.8.2" 
+futures = "0.3.4"
+reqwest = { version = "0.10", features = ["json"] }
+tokio = { version = "0.2", features = ["full"] }
+
+[profile.release]
+panic = 'abort'
+
