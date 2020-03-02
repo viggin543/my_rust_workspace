@@ -24,7 +24,7 @@ mod tests {
 
     #[test]
     fn stack_overflow() {
-        let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
+        let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil)))); // reference counting
 
         println!("a initial rc count = {}", Rc::strong_count(&a));
         println!("a next item = {:?}", a.tail());

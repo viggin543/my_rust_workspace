@@ -14,7 +14,10 @@ impl<T> Deref for MyBox<T> {
 
     fn deref(&self) -> &T {
         &self.0
-    }
+    } // a type that implements deref can use deref coercion. s
+      // o you can access wrapped type without explicitly using the * deref operator
+      // like here: mutex.rs:25
+      // notice -> counter.lock()
 }
 
 impl<T> Drop for MyBox<T> {

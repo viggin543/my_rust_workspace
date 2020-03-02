@@ -1,7 +1,7 @@
 [workspace]
 
 members = [
-    "guessing_game",
+    "learn-rust",
     "adder",
     "add-one",
 ]
