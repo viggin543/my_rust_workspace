@@ -15,8 +15,10 @@ pub fn this_is_a_mutex() {
 }
 
 fn complex_example() {
-    let counter = Arc::new(Mutex::new(0)); // atomic reference counting
-
+    let counter = Arc::new(Mutex::new(0));
+    // atomic reference counting
+    // Rc<> ownership is not thread safe and cant be passed between threads since it does not implement the Send marker trait !
+    //  Sync marker trait indicates that many threads can hold a reference to an object. . https://doc.rust-lang.org/book/ch16-04-extensible-concurrency-sync-and-send.html#extensible-concurrency-with-the-sync-and-send-traits
     let mut handles = vec![];
 
     for _ in 0..10 {

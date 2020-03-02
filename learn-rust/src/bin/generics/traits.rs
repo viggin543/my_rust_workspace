@@ -30,6 +30,7 @@ impl Summary for NewsArticle {
     }
 
     fn summarize(&self) -> String {
+        // trait default impl
         format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
 }
@@ -68,12 +69,16 @@ pub fn notifyWow<T: Summary + Display>(item: T) {
     println!("Breaking news! {}", item.summarize());
 }
 
-fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {3}
+fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {
+    3
+}
 fn some_function_with_where<T, U>(t: T, u: U) -> i32
-    where T: Display + Clone,
-          U: Clone + Debug
-{3}
-
+where
+    T: Display + Clone,
+    U: Clone + Debug,
+{
+    3
+}
 
 fn returns_summarizable() -> impl Summary {
     Tweet {
@@ -83,7 +88,6 @@ fn returns_summarizable() -> impl Summary {
         retweet: false,
     }
 }
-
 
 fn largest_copy<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut largest = list[0];
@@ -98,7 +102,8 @@ fn largest_copy<T: PartialOrd + Copy>(list: &[T]) -> T {
 }
 
 fn largest_clone<T>(list: &[T]) -> T
-    where T: PartialOrd + Clone
+where
+    T: PartialOrd + Clone,
 {
     let mut largest = list[0].clone();
     for item in list.clone().iter() {
@@ -108,7 +113,6 @@ fn largest_clone<T>(list: &[T]) -> T
     }
     largest
 }
-
 
 fn largest_ref<T: PartialOrd>(list: &[T]) -> &T {
     let mut max = &list[0];
@@ -120,7 +124,7 @@ fn largest_ref<T: PartialOrd>(list: &[T]) -> &T {
     max
 }
 
-struct Pair<T>{
+struct Pair<T> {
     x: T,
     y: T,
 }
@@ -139,7 +143,6 @@ trait Jump {
     fn jump(&self) -> String;
 }
 
-
 #[derive(Debug)]
 struct ExtendMe(String);
 //blanket impl. implement ToString trait for traits that implement the Display trait
@@ -150,8 +153,7 @@ impl<T: Debug> Jump for T {
     }
 }
 
-
-fn is_this_an_extension_function(){
+fn is_this_an_extension_function() {
     let e = ExtendMe("da".to_string());
     e.jump();
 }
