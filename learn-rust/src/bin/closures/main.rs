@@ -3,8 +3,9 @@ use std::fmt::Display;
 use std::hash::Hash;
 use std::thread;
 use std::time::Duration;
-
+mod default_type_params;
 mod iterators;
+mod mixins;
 
 fn simulated_expensive_calculation(intensity: u32) -> u32 {
     println!("calculating slowly...");

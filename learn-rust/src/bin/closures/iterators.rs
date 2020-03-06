@@ -46,11 +46,7 @@ mod tests {
         // sum consumes the iterator. and it cant be used any more after call to sum
         assert_eq!(total, 6);
     }
-
-
-
 }
-
 
 #[derive(PartialEq, Debug)]
 struct Shoe {
@@ -59,25 +55,38 @@ struct Shoe {
 }
 
 fn shoes_in_my_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
-    shoes.into_iter()
-        .filter(|s| s.size == shoe_size)
-        .collect()
+    shoes.into_iter().filter(|s| s.size == shoe_size).collect()
 }
 
 #[test]
 fn filters_by_size() {
     let shoes = vec![
-        Shoe { size: 10, style: String::from("sneaker") },
-        Shoe { size: 13, style: String::from("sandal") },
-        Shoe { size: 10, style: String::from("boot") },
+        Shoe {
+            size: 10,
+            style: String::from("sneaker"),
+        },
+        Shoe {
+            size: 13,
+            style: String::from("sandal"),
+        },
+        Shoe {
+            size: 10,
+            style: String::from("boot"),
+        },
     ];
 
     let in_my_size = shoes_in_my_size(shoes, 10);
     assert_eq!(
         in_my_size,
         vec![
-            Shoe { size: 10, style: String::from("sneaker") },
-            Shoe { size: 10, style: String::from("boot") },
+            Shoe {
+                size: 10,
+                style: String::from("sneaker")
+            },
+            Shoe {
+                size: 10,
+                style: String::from("boot")
+            },
         ]
     );
 }
@@ -95,7 +104,11 @@ impl Counter {
 }
 
 impl Iterator for Counter {
-    type Item = u32;
+    type Item = u32; // associated type
+                     // we need this in order to have a single iterator for Counter.
+                     // otherwise we would have needed to specify a type parameter to every call to next method
+                     // next::<u32>(). which sucks
+                     //https://doc.rust-lang.org/book/ch19-03-advanced-traits.html
 
     fn next(&mut self) -> Option<Self::Item> {
         self.count += 1;
@@ -110,9 +123,15 @@ impl Iterator for Counter {
 
 #[test]
 fn using_other_iterator_trait_methods() {
-    let sum: u32 = Counter::new().zip(Counter::new().skip(1))
+    let sum: u32 = Counter::new()
+        .zip(Counter::new().skip(1))
         .map(|(a, b)| a * b)
         .filter(|x| x % 3 == 0)
         .sum();
     assert_eq!(18, sum);
 }
+
+// this wont compile.
+// no operator overloading
+//fn da1() {}
+//fn da1(u: i8) {}
